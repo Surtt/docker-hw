@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   postgresql:
-    image: postgres:latest
+    image: postgres
     environment:
       POSTGRES_PASSWORD: mysecretpassword
     ports:
