@@ -1,0 +1,18 @@
+version: "3.8"
+
+services:
+  postgresql:
+    image: postgres:latest
+    environment:
+      POSTGRES_PASSWORD: mysecretpassword
+    ports:
+      - "5432:5432"
+    networks:
+      - my-pg-network
+    volumes:
+      - /home/vasa/data:/data/pg
+    restart: always
+
+networks:
+  my-pg-network:
+    driver: bridge
