@@ -1,0 +1,1 @@
+ansible -i hosts.ini -m ansible.builtin.setup -a 'filter=default_ipv4,distribution,distribution_version,hostname,env' demo
