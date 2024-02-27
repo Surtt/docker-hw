@@ -1,0 +1,34 @@
+version: "3.8"
+
+services:
+  nginx:
+    image: nginx
+    deploy:
+      replicas: 3
+    configs:
+      - source: nginx_config
+        target: /etc/nginx/nginx.conf
+    networks:
+      - appnet
+
+  postgres:
+    image: postgres
+    deploy:
+      placement:
+        constraints:
+          - node.labels.postgres == true
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    networks:
+      - appnet
+
+configs:
+  nginx_config:
+    file: ./nginx.conf
+
+networks:
+  appnet:
+    driver: overlay
+
+volumes:
+  pgdata:
