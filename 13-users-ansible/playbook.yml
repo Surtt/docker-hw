@@ -1,0 +1,7 @@
+---
+- name: Create users
+  hosts: users
+  roles:
+    - create_users
+  vars_files:
+    - create_users/vars/vault.yml

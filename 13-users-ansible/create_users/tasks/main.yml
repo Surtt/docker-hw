@@ -1,0 +1,25 @@
+---
+- name: Ensure docker group exists
+  group:
+    name: docker
+    state: present
+
+- name: Create users and generate keys
+  user:
+    name: "{{ item.name }}"
+    password: "{{ item.password | password_hash('sha512') }}"
+    shell: /bin/bash
+    generate_ssh_key: yes
+    ssh_key_bits: 2048
+    ssh_key_file: ~/.ssh/id_rsa
+    state: present
+  loop: "{{ users }}"
+  become: yes
+
+- name: Add users to docker group
+  user:
+    name: "{{ item.name }}"
+    groups: docker
+    append: yes
+  loop: "{{ users }}"
+  become: yes
